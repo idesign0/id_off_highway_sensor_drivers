@@ -81,10 +81,6 @@ rclcpp_components_register_node(${PROJECT_NAME}
 )
 
 
-install(TARGETS receiver sender
-  DESTINATION lib/${PROJECT_NAME}
-)
-
 install(DIRECTORY config launch
   DESTINATION share/${PROJECT_NAME}/
 )
