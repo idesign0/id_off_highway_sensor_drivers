@@ -1,10 +1,12 @@
 cmake_minimum_required(VERSION 3.16)
 project(off_highway_premium_radar)
 
-if(NOT CMAKE_CXX_STANDARD)
-  set(CMAKE_CXX_STANDARD 20)
-  set(CMAKE_CXX_STANDARD_REQUIRED ON)
-endif()
+# ros2_macOS: force C++20 -- src/helper.hpp uses std::bit_cast (C++20-only under libc++).
+# The macOS toolchain sets CMAKE_CXX_STANDARD=17 globally, so the original
+# `if(NOT CMAKE_CXX_STANDARD)` guard skipped the bump -> "no template named bit_cast in
+# namespace std". Set it unconditionally.
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 if(CMAKE_COMPILER_IS_GNUCXX OR CMAKE_CXX_COMPILER_ID MATCHES "Clang")
   add_compile_options(-Wall -Wextra -Wdeprecated)
